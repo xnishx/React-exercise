@@ -9,6 +9,7 @@ import {
 } from "urql";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import Subscriber from "./Subscriber";
+import Chart from "./Chart";
 
 
 const subscriptionClient = new SubscriptionClient("ws://react.eogresources.com/graphql",
@@ -37,4 +38,5 @@ export default () => <UrqlProvider value={client}>
         {({ data }) => <Subscriber data={data} />}
     </Subscription>
     <SwitchPanel />
+    <Chart />
 </UrqlProvider>

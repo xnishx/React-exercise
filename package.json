@@ -15,8 +15,10 @@
     "react-toastify": "^4.4.0",
     "react-use": "^9.4.0",
     "rebound": "^0.1.0",
+    "recharts": "^1.6.2",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.3",
+    "reselect": "^4.0.0",
     "subscriptions-transport-ws": "^0.9.16",
     "urql": "^1.1.1"
   },
