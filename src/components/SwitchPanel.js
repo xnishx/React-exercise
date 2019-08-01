@@ -5,15 +5,18 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Switch from '@material-ui/core/Switch';
+import { useSelector } from "react-redux";
+import { getLatestMetricDataSelector } from "../store/actions";
 
-const SingleSwitchComp = ({ text }) => {
+
+const SingleSwitchComp = ({ text, mkey, data }) => {
     return <Card>
         <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
                 {text}
             </Typography>
             <Typography variant="h5" color="textSecondary" component="p">
-                435.00
+                {data[mkey] || 0}
             </Typography>
         </CardContent>
         <CardActions>
@@ -35,13 +38,14 @@ const useStyles = makeStyles(theme => ({
 
 const SwitchPanel = () => {
     const { root } = useStyles();
+    const latestData = useSelector(getLatestMetricDataSelector);
     return <div className={root}>
-        <SingleSwitchComp text="Tubing Pressure" />
-        <SingleSwitchComp text="Casing Pressure" />
-        <SingleSwitchComp text="Oil Temp" />
-        <SingleSwitchComp text="Flare Temp" />
-        <SingleSwitchComp text="Watrer Temp" />
-        <SingleSwitchComp text="Inj Valve Open" />
+        <SingleSwitchComp text="Tubing Pressure" mkey="tubingPressure" data={latestData} />
+        <SingleSwitchComp text="Casing Pressure" mkey="casingPressure" data={latestData} />
+        <SingleSwitchComp text="Oil Temp" mkey="oilTemp" data={latestData} />
+        <SingleSwitchComp text="Flare Temp" mkey="flareTemp" data={latestData} />
+        <SingleSwitchComp text="Watrer Temp" mkey="waterTemp" data={latestData} />
+        <SingleSwitchComp text="Inj Valve Open" mkey="injValveOpen" data={latestData} />
     </div>
 }
 export default SwitchPanel;
