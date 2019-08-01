@@ -4,7 +4,12 @@ const allowedDataSize = 250;
 
 const initialState = {
     reducedMetricData: [],
-    metricVisibilityMap: {},
+    metricVisibilityMap: {
+        tubingPressure: true,
+        casingPressure: true,
+        flareTemp: true,
+        injValveOpen: true
+    },
     latestMetricData: {},
     dataSize: 0
 };

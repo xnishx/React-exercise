@@ -6,10 +6,14 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Switch from '@material-ui/core/Switch';
 import { useSelector, useDispatch } from "react-redux";
-import { getLatestMetricDataSelector, setMetricVisibilityAction } from "../store/actions";
+import {
+    getLatestMetricDataSelector,
+    setMetricVisibilityAction,
+    getMetricVisibility
+} from "../store/actions";
 
 
-const SingleSwitchComp = ({ text, mkey, data }) => {
+const SingleSwitchComp = ({ text, mkey, data, checked }) => {
     const dispatch = useDispatch();
     const onChangeSwitch = (e, checked) => dispatch(setMetricVisibilityAction(e.target.name, checked));
     return <Card>
@@ -22,7 +26,7 @@ const SingleSwitchComp = ({ text, mkey, data }) => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Switch name={mkey} color="primary" onChange={onChangeSwitch} />
+            <Switch name={mkey} color="primary" onChange={onChangeSwitch} checked={checked} />
         </CardActions>
     </Card>
 }
@@ -41,13 +45,14 @@ const useStyles = makeStyles(theme => ({
 const SwitchPanel = () => {
     const { root } = useStyles();
     const latestData = useSelector(getLatestMetricDataSelector);
+    const visibility = useSelector(getMetricVisibility);
     return <div className={root}>
-        <SingleSwitchComp text="Tubing Pressure" mkey="tubingPressure" data={latestData} />
-        <SingleSwitchComp text="Casing Pressure" mkey="casingPressure" data={latestData} />
-        <SingleSwitchComp text="Oil Temp" mkey="oilTemp" data={latestData} />
-        <SingleSwitchComp text="Flare Temp" mkey="flareTemp" data={latestData} />
-        <SingleSwitchComp text="Watrer Temp" mkey="waterTemp" data={latestData} />
-        <SingleSwitchComp text="Inj Valve Open" mkey="injValveOpen" data={latestData} />
+        <SingleSwitchComp text="Tubing Pressure" mkey="tubingPressure" data={latestData} checked={visibility.tubingPressure} />
+        <SingleSwitchComp text="Casing Pressure" mkey="casingPressure" data={latestData} checked={visibility.casingPressure} />
+        <SingleSwitchComp text="Oil Temp" mkey="oilTemp" data={latestData} checked={visibility.oilTemp} />
+        <SingleSwitchComp text="Flare Temp" mkey="flareTemp" data={latestData} checked={visibility.flareTemp} />
+        <SingleSwitchComp text="Watrer Temp" mkey="waterTemp" data={latestData} checked={visibility.waterTemp} />
+        <SingleSwitchComp text="Inj Valve Open" mkey="injValveOpen" data={latestData} checked={visibility.injValveOpen} />
     </div>
 }
 export default SwitchPanel;
