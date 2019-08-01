@@ -1,22 +1,15 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddleware from "redux-saga";
-import sagas from "./sagas";
-import weatherReducer from "./reducers/Weather";
 import metricReducer from "./reducers/Metric";
 
 export default () => {
   const rootReducer = combineReducers({
-    weather: weatherReducer,
     metrics: metricReducer
   });
 
   const composeEnhancers = composeWithDevTools({});
-  const sagaMiddleware = createSagaMiddleware();
-  const middlewares = applyMiddleware(sagaMiddleware);
-  const store = createStore(rootReducer, composeEnhancers(middlewares));
+  const store = createStore(rootReducer, composeEnhancers());
 
-  sagas.forEach(sagaMiddleware.run);
 
   return store;
 };
