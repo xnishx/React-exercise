@@ -5,11 +5,13 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Switch from '@material-ui/core/Switch';
-import { useSelector } from "react-redux";
-import { getLatestMetricDataSelector } from "../store/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { getLatestMetricDataSelector, setMetricVisibilityAction } from "../store/actions";
 
 
 const SingleSwitchComp = ({ text, mkey, data }) => {
+    const dispatch = useDispatch();
+    const onChangeSwitch = (e, checked) => dispatch(setMetricVisibilityAction(e.target.name, checked));
     return <Card>
         <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
@@ -20,7 +22,7 @@ const SingleSwitchComp = ({ text, mkey, data }) => {
             </Typography>
         </CardContent>
         <CardActions>
-            <Switch color="primary" />
+            <Switch name={mkey} color="primary" onChange={onChangeSwitch} />
         </CardActions>
     </Card>
 }

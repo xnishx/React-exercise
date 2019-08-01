@@ -5,7 +5,7 @@ import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend
 } from 'recharts';
 import { useSelector } from "react-redux";
-import { getReducedMetricDataSelector } from "../store/actions";
+import { getReducedMetricDataSelector, getMetricVisibility } from "../store/actions";
 
 const useStyles = makeStyles({
     root: {
@@ -16,6 +16,7 @@ const useStyles = makeStyles({
 export default () => {
     const { root } = useStyles();
     const data = useSelector(getReducedMetricDataSelector);
+    const visibility = useSelector(getMetricVisibility) || {};
     return <Card className={root}>
         <ResponsiveContainer width='100%'>
             <LineChart data={data}
@@ -25,12 +26,12 @@ export default () => {
                 <CartesianGrid strokeDasharray="2 2" />
                 <XAxis dataKey="at" type="number" domain={['dataMin', 'dataMax']} />
                 <YAxis domain={['dataMin - 200', 'dataMax+200']} />
-                <Line type="monotone" dataKey="tubingPressure" stroke="#f44336" strokeWidth={2} />
-                <Line type="monotone" dataKey="casingPressure" stroke="#9c27b0" strokeWidth={2} />
-                <Line type="monotone" dataKey="oilTemp" stroke="#3f51b5" strokeWidth={2} />
-                <Line type="monotone" dataKey="flareTemp" stroke="#009688" strokeWidth={2} />
-                <Line type="monotone" dataKey="waterTemp" stroke="#ff9800" strokeWidth={2} />
-                <Line type="monotone" dataKey="injValveOpen" stroke="#795548" strokeWidth={2} />
+                {visibility.tubingPressure && <Line type="monotone" dataKey="tubingPressure" stroke="#f44336" strokeWidth={2} />}
+                {visibility.casingPressure && <Line type="monotone" dataKey="casingPressure" stroke="#9c27b0" strokeWidth={2} />}
+                {visibility.oilTemp && <Line type="monotone" dataKey="oilTemp" stroke="#3f51b5" strokeWidth={2} />}
+                {visibility.flareTemp && <Line type="monotone" dataKey="flareTemp" stroke="#009688" strokeWidth={2} />}
+                {visibility.waterTemp && <Line type="monotone" dataKey="waterTemp" stroke="#ff9800" strokeWidth={2} />}
+                {visibility.injValveOpen && <Line type="monotone" dataKey="injValveOpen" stroke="#795548" strokeWidth={2} />}
                 <Legend />
             </LineChart>
         </ResponsiveContainer>

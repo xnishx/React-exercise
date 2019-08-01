@@ -40,8 +40,16 @@ const updateMetricData = (state, action) => {
 
 }
 
+const setMetricVisibility = (state, action) => {
+    return {
+        ...state,
+        metricVisibilityMap: { ...state.metricVisibilityMap, ...action.data }
+    }
+}
+
 const handlers = {
     [actions.UPDATE_METRICS_DATA]: updateMetricData,
+    [actions.SET_METRIC_VISIBILITY]: setMetricVisibility
 };
 export default (state = initialState, action) => {
     const handler = handlers[action.type];
