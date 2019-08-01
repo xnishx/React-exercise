@@ -22,3 +22,4 @@ const stateSelector = state => state.metrics;
 export const getReducedMetricDataSelector = createSelector([stateSelector], state => state.reducedMetricData);
 export const getLatestMetricDataSelector = createSelector([stateSelector], state => state.latestMetricData);
 export const getMetricVisibility = createSelector([stateSelector], state => state.metricVisibilityMap);
+export const getDataCount = createSelector([stateSelector], state => state.dataSize);
